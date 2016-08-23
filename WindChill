@@ -1,0 +1,37 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+
+int windChill(int airTemp, int windSpeed){
+    int index;
+    index = round (35.74 + (0.6215 * airTemp) - (35.75 * pow(windSpeed, 0.16)) + (0.4275 * airTemp * pow(windSpeed, 0.16)));
+    return index;
+}
+
+int main()
+{
+    
+    cout << setw(5) << "**************Wind Chill Table*************" << endl << endl;
+    cout << setw(5) << "       |          Temperature                  " << endl;
+    cout << setw(5) << "WS (MPH|";
+    for (int x = 40; x > -15; x -= 5)
+        cout << setw(5) << x;
+    cout << endl;
+    cout << "-------------------------------------------------------------------";
+    cout << endl;
+    
+    
+    for (int WS = 5; WS <= 50; WS += 5){ 
+        cout << setw(6) << WS << " |";
+        
+        for (int temp = 45; temp >= -10; temp -= 5){
+            
+            cout << setw(5) << windChill(temp, WS);
+        }
+        cout << endl;
+    }
+    cout << "--------------------------------------------------------------------" << endl;
+    cout << "[WS = Wind Speed]";
+}
