@@ -1,0 +1,54 @@
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+    
+    
+int main() {
+    char s[80];
+    int SIZE=0 , counter = 0;
+    
+    cout << "Enter a string less than 80 characters long." << endl;
+    cin.getline(s,80);
+    
+    
+    char *end = s; //
+    char *head= s;
+    char temp;
+    for (int i = 0; i < 80 ; i++){ // moves pointer of array to end
+        if(*end!=NULL){
+            ++end;
+            ++counter;
+        }
+        else{
+            --end;
+            break;
+        }
+    }
+    
+    SIZE = counter;
+    
+    if (SIZE%2!=0){   // Finds length of array
+        SIZE = SIZE - 1;
+        SIZE = SIZE / 2 ;
+    }
+    
+    
+    for (int jj=0 ; jj<SIZE; jj++){ // swaps end pointer with head pointer
+        temp = *head; // saves initial head pointer value to swap with end
+        *head = *end;
+        *end = temp;
+        
+        --end;
+        ++head;
+        
+    }
+    cout << "The string reversed is : " << endl;
+    for (int kk = 0; kk < SIZE+1 ; kk++){ // loops through array to print out reversed string
+        cout << *head ;
+        --head;
+    }
+    
+    cout << endl;
+}
