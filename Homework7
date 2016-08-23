@@ -1,0 +1,85 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+class Money{
+    
+public:
+
+    Money() {                   // default constructor
+        dollars = 0;
+        cents = 0;
+    }
+    
+    void setDollars(int paper) ;
+    
+    void setCents(int coins) ;
+    
+    int getDollars();
+    
+    int getCents();
+    
+    double getAmount();
+    
+private:
+    
+    int dollars;
+    int cents;
+    
+};
+
+
+int Money::getDollars(){ // accessor
+    
+    return dollars;
+    
+}
+
+int Money::getCents(){ // accessor
+    
+    return cents;
+    
+}
+
+void Money::setDollars(int paper){ // mutator
+    
+    dollars = paper;
+    
+}
+
+void Money::setCents(int coins){ // mutator
+    
+    if ( coins>99){             // checks if there is a dollar or more in coins
+        
+        cents = coins % 100;
+        dollars = dollars + (coins / 100.0); // if so, it adds onto dollar amount
+        
+    }
+    
+    else{
+        
+        cents = coins;
+        
+    }
+}
+
+double Money::getAmount(){
+    double amount=0.0;
+    amount = dollars + cents/100.0;         // adds together
+    return amount;
+}
+
+int main(){
+    
+    Money M1;
+    Money M2;
+    M2.setDollars(4);
+    M2.setCents(137);
+    M1.setDollars(100);
+    M1.setCents(45);
+    
+    cout <<"The amount of M1 is: $"<< fixed << setprecision(2) << M1.getDollars()<< "." << M1.getCents()<< endl;
+    cout <<"The amount of M2 is: $"<< M2.getAmount() << endl;
+    
+}
