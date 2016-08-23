@@ -1,0 +1,115 @@
+
+#include <iostream>
+using namespace std;
+
+double collectScores(double scores[], int NUM){ //Allows user to input scores & checks if within range
+    double judgeInput, diveDiff;
+    for (int i = 0; i<NUM ; i++) {
+        cout << "Please enter a judge's score " << endl ;
+        cin >> judgeInput;
+        while( judgeInput>10 | judgeInput < 0){
+            cout << "Please enter a valid judge score" << endl;
+            cin >>judgeInput;
+        }
+        scores[i] = judgeInput;
+    
+    }
+    
+    cout << "Please input the degree of dive difficulty" << endl;
+    cin >> diveDiff;
+    
+    while(diveDiff>3.8 | diveDiff < 1.2){
+        cout << "Please enter a degree of difficulty between 1.2 and 3.8" <<endl;
+        cin >> diveDiff;
+    }
+
+    return diveDiff;
+    
+}
+
+double smallestScore(const double array[], int NUM){
+    
+    int smallestPosition = 0;
+    double smallest=array[0];
+    
+    for ( int x = 0; x < NUM ; x++) { // loops through array
+        if (smallest > array[x]) {
+            smallest = array[x]; // sets variable equal to smallest number
+            smallestPosition = x; // stores position of highest num
+    
+        }
+    }
+    return smallestPosition;
+}
+
+double highestScore (const double array[], int NUM) {
+    int highestPosition=0;
+    
+    double highest=array[0];
+    
+    for (int j=0 ; j < NUM ; j++ ) {
+        if (highest < array[j]){
+            highest = array[j]; // sets variable equal to smallest number
+            highestPosition = j; //stores position of highest num
+        }
+    }
+    return highestPosition;
+}
+
+double sumScores ( const double array[], double degreeDiff, int NUM, int smallPos, int highPos) {
+    
+    double sumCounter = 0, scoreTotal=0;
+    
+    for (int y=0 ; y < NUM ; y++){ //loops through array
+        if(y == smallPos | y == highPos){ //does nothing if position equals to smallest or highest
+        
+        }
+        else{
+            sumCounter += array[y]; // adds up scores except highest and dlowest
+            
+        }
+   
+    }
+    scoreTotal = (sumCounter * degreeDiff) * .6; // finalizes scores
+    
+    
+    return scoreTotal;
+}
+
+int main() {
+    
+    double degreeDive=0, sum=0;
+    
+    int SIZE = 0,smallestPos=0 , highestPos=0 ;
+    
+    char input;
+    
+    while ( input != 'N') { // allows user to continuously input scores of different divers
+    
+        cout <<"Please input how many scores there are : " << endl;
+        cin >> SIZE;
+        
+        double scoresArr[SIZE] ;
+    
+        degreeDive = collectScores(scoresArr, SIZE); // calls function
+
+    
+        smallestPos = smallestScore (scoresArr, SIZE);
+
+    
+        highestPos = highestScore (scoresArr, SIZE);
+        
+    
+        sum = sumScores(scoresArr, degreeDive , SIZE, smallestPos, highestPos );
+    
+        cout << "The diver's score is : " << sum <<endl << endl; // prints out final score
+        
+        cout << "Would you like to input a new set of values? Y or N" << endl;
+    
+        cin >> input;
+    
+    
+        
+    }
+    
+}
