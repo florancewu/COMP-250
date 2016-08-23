@@ -1,0 +1,118 @@
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+class List{
+    public:
+    List();
+    List( int listLength);
+    ~List(); // destructor
+    //called when an object is deleted
+    
+    List ( const List &otherList);
+    void addElement(double element);
+    void print();
+    
+    private:
+        double* listPtr;
+        int length ;
+        int used;
+        
+};
+
+List::List(){
+    length= 10;
+    listPtr=new double [length];
+    used = 0;
+    
+}
+
+
+List::List(int listLength){
+    length = listLength;
+    listPtr = new double[length];
+    used = 0;
+    
+}
+List::List ( const List &otherList){
+    
+    
+    this->length = otherList.length;
+    
+    (*this).used = otherList.used;
+    
+    listPtr = new double[length];
+    for (int n=0 ;n<used; n++){
+        listPtr[n] = otherList.listPtr[n];
+    }
+}
+
+void List::addElement(double element){
+    
+    if( used <= length){
+        
+        listPtr[used] = element;
+        used++;
+    }
+    else {
+        cout << "Sorry, list is full \n \n";
+    }
+    
+}
+void List::print(){
+    
+    for (int n = 0; n < length; n++){
+        cout << listPtr[n] << " " ;
+        
+    }
+    cout << endl;
+}
+
+List :: ~List(){
+    cout << "Deleting " << (8*length)
+    <<"starting at address"
+    <<listPtr << "..." << endl;
+    delete [] listPtr;
+    cout << "The object is deleted" << endl;
+    
+}
+
+void sillyFunction(){
+    List localList(40);
+    
+}
+
+
+
+
+
+int main(){
+    List myList(5);
+    myList.addElement(3.14);
+    myList.addElement(4.5);
+    myList.addElement(6.5);
+   
+    List yourList(myList);
+    myList.print();
+    yourList.print();
+    
+    myList.addElement(-3.4);
+    myList.addElement(4.2);
+    
+    myList.print();
+    yourList.print();
+    
+    List *p; // pointer to class type list
+    p = new List(5);
+    
+    (*p).addElement(434);
+    
+    p-> addElement(32.5);//does same thing as above
+    p->addElement(4.5);
+    p->addElement(10);
+    p->addElement(45);
+    
+    p -> print();
+    delete p;
+}
